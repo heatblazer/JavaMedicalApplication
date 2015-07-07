@@ -1,0 +1,50 @@
+Container based framework.
+
+Basic concrete classes ( logic/UI ) up to date 18.01.2014.
+
+1.MainApp - container class, extends JFrame, has window event listeners, focust listener and key press listeners - reads XML, config file, collects referencies to all QADList(s) and QQuestion(s). Holds indexes of all QADLists, and all QQUestions. The last QADList is always for exiting the program. The MainApp always is a top focus listener!
+MainApp is not builder class. It calls init() which populates QADList array. MainApp has almost no user logic. 
+
+2.QADList - container class. No GUI extension. Container with list of QQUestions, has complicated logics for updating to next, previous and some custom logics about visits, and button presses. Builder paternized. Builder builds QQuestion. Possible design inconvinience: QADList has MainApp reference, that uses for calling revalidate() and repain(). 
+
+3.QQuestions - container/GUI class extends JPanel. Contains 2 QButtons, 1 QTextFrame and/or QSlider. No focused by default. Customizable layout. Builder paternized. Builder builds QButton, QTextArea, QSlider.
+
+4.QButton - button class extends JButton, has simple functionality, event listeners for presses, releases, clicks, etc. Customizable text, color, size. Builder paternized.
+
+5.QTextFrame - simple text area, extends JTextField, has a customizable text view, layouts. Builder paternized.
+
+6.QSlider - slider based on JSlider with added functionality. Has a specific method for jumping the slider pointer to XY location based on mouse clicks. Also has implemented all possible event handlers for further customization. Builder paternized.
+
+7.QErrorMessage - special JPanel extension, that has a GUI revalidate() and repaint(). Also gains focus so no other buttons can be pressed. Has a timer method which updates the GUI. 11.01.2014 added functionality to pass an ActionListener as function arameter for specific functionality.
+
+8.QuizSPlashMenu - JFframe extension with  options for loading a specific XML file, creating a new XML via GUI editor (WIP) and initing the MainApp class. 
+
+9.QuizXMLReader - a simple XML reader. Readse the program specific XML text, throws exception and terminates if format is not XML or the XML tree structure is not as expected.
+
+10.QTimer - static class which contains javax.swing.Timer. It starts a counter to perform specific tasks, like starting warning frames. 
+
+11.QuizItem - string composite class, for creating a specific data object after a XML file is processed from QuizXMLReader. It concretes the XML file which it reads.
+
+12.CSVRecorder - a simple class for collecting String data between program events, then record it into 2D array of strings, and finally outputs it to a CSV file for creating a spreadsheets.
+
+13.QuizScreenCapture - robot based class for capturing a specific area from the screen. Unused as for ver 7.6.x
+
+14.ErrorMessage - static class extending JFrame or JDialog. It prints messages with programable button. Depricated as QErrorMessage is in use from ver.6 and up.
+
+15.QuizLog - static class for printing log messages to "log" folder. It prints time/date to the file too. All system messages will be redirected to QuizLog class. 
+
+16.QuizVideoRecorder - OpenCV module for starting and capturing video, or taking photos. Unused for current version. 
+
+17.ConfigReader - static class for reading a specific config file. Also creates a text config file if not present. The text file is responsible to set the look and feel of the app and to determine if the program is run for the first time.
+
+18.QuizVisitor, QuizPartVisitor and QuizPart implement the Visitor design patern. Depricated as they are not used anywhere for now.
+
+19.QuizFileLoader - extends JFileLoader - loads a specific XML file or throws exception for format or file extension.
+
+20.TimeMonitoring - unused class as for ver 7.6.x.
+
+21.QSerialize - static class for object serilization and deserilization. 
+
+22.QRadioButton extends JPanel - contains a vertical JPanel layout with embeded JRadioButtons. The number of buttons corresponds to XML file <answer> tags. 
+
+23.QPanel extends JPanel - possible factory class for creating QRadioButtons or QSliders - unused as for 22.01.2014. 
